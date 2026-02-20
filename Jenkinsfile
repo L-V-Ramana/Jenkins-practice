@@ -35,6 +35,8 @@ pipeline {
                 script{
                    sh  """
                         echo "Building.. in script"
+                        env
+                        sleep 10
                     """
                 }
                 
