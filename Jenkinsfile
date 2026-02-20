@@ -22,7 +22,13 @@
 
 pipeline {
     agent  { label 'agent-1' }
-
+     options {
+        timeout(time: 10, unit: 'SECONDS') 
+        disableConcurrentBuilds()
+    }
+    environment { 
+        course = 'jenkins'
+    }
     stages {
         stage('Build') {
             steps {
@@ -48,6 +54,7 @@ pipeline {
     post { 
         always { 
             echo 'I will always say Hello again!'
+            deleteDir()
         }
         changed { 
             echo ' changed Hello again!'
