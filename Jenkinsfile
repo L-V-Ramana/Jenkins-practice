@@ -1,21 +1,59 @@
+// pipeline {
+//     agent any
+
+//     stages {
+//         stage('Build') {
+//             steps {
+//                 echo 'Building..'
+//             }
+//         }
+//         stage('Test') {
+//             steps {
+//                 echo 'Testing..'
+//             }
+//         }
+//         stage('Deploy') {
+//             steps {
+//                 echo 'Deploying....'
+//             }
+//         }
+//     }
+// }
+
 pipeline {
-    agent any
+    agent  { label 'agent-1' }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                script{
+                   sh  """
+                        echo "Building.. in script"
+                    """
+                }
+                
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                echo "Testing.."
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo "Deploying...."
             }
+        }
+    }
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
+        }
+        changed { 
+            echo ' changed Hello again!'
+        }
+        failure { 
+            echo 'I will always say Hello on failure!'
         }
     }
 }
